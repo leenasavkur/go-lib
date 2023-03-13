@@ -1,4 +1,4 @@
-module server
+module github.com/leenasavkur/go-lib/server
 
 go 1.20
 
