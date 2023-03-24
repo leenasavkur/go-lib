@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 type Server struct {
@@ -21,6 +22,12 @@ type ServerOptions struct {
 func New(options *ServerOptions) *Server {
 	serverInst := new(Server)
 	serverInst.app = fiber.New()
+	serverInst.app.Use(cors.New(cors.Config{
+		AllowHeaders:     "Origin,Content-Type,Accept,Content-Length,Accept-Language,Accept-Encoding,Connection,Access-Control-Allow-Origin",
+		AllowOrigins:     "*",
+		AllowCredentials: true,
+		AllowMethods:     "GET,POST,HEAD,PUT,DELETE,PATCH,OPTIONS",
+	}))
 	serverInst.options = getServerOptions(options)
 	return serverInst
 }
@@ -75,4 +82,3 @@ func getServerOptions(sOptions *ServerOptions) ServerOptions {
 
 	return options
 }
-
